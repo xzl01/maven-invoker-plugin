@@ -19,45 +19,21 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<project xmlns="http://maven.apache.org/DECORATION/1.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/DECORATION/1.0.0 http://maven.apache.org/xsd/decoration-1.0.0.xsd">
-
-  <bannerLeft>
-    <src>http://maven.apache.org/images/apache-maven-project.png</src>
-    <href>http://www.apache.org/</href>
-  </bannerLeft>
-
-  <bannerRight>
-    <src>http://maven.apache.org/images/maven-logo-black-on-white.png</src>
-    <href>http://maven.apache.org/</href>
-  </bannerRight>
-  <skin>
-    <groupId>org.apache.maven.skins</groupId>
-    <artifactId>maven-fluido-skin</artifactId>
-    <version>1.6</version>
-  </skin>
-
-  <custom>
-    <fluidoSkin>
-      <sourceLineNumbersEnabled>true</sourceLineNumbersEnabled>
-      <googlePlusOne />
-      <googleSearch>
-        <sitesearch>maven.apache.org/plugins/maven-invoker-plugin/</sitesearch>
-      </googleSearch>
-    </fluidoSkin>
-  </custom>
+<project xmlns="http://maven.apache.org/DECORATION/1.8.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/DECORATION/1.8.0 https://maven.apache.org/xsd/decoration-1.8.0.xsd">
 
   <body>
     <menu name="Overview">
       <item name="Introduction" href="index.html"/>
       <item name="Goals" href="plugin-info.html"/>
       <item name="Usage" href="usage.html"/>
+      <item name="Groovy version" href="groovy-version.html"/>
       <item name="FAQ" href="faq.html"/>
       <!-- According to https://issues.apache.org/jira/browse/MNGSITE-152 -->
-      <item name="License" href="http://www.apache.org/licenses/"/>
+      <item name="License" href="https://www.apache.org/licenses/"/>
       <item name="Download" href="download.html"/>
     </menu>
+
     <menu name="reference">
       <item name="build-job.xml" href="build-job.html"/>
     </menu>
@@ -69,9 +45,11 @@ under the License.
       <item name="Fast Build Configuration" href="examples/fast-use.html"/>
       <item name="Installing Artifacts" href="examples/install-artifacts.html"/>
       <item name="Invoker Properties" href="examples/invoker-properties.html"/>
+      <item name="Inspect logs for failed tests" href="examples/logs-for-failed-tests.html"/>
       <item name="Selector Conditions" href="examples/selector-conditions.html"/>
       <item name="Selector Scripts" href="examples/selector-scripts.html"/>
       <item name="Using a Post Build Script" href="examples/post-build-script.html"/>
+      <item name="Parallel projects execution" href="examples/parallel-projects-execution.html"/>
       <item name="Preparing the Build Environment" href="examples/prepare-build-env.html"/>
       <item name="Skipping Invocations" href="examples/skipping.html"/>
       <item name="Using with other integration test frameworks" href="examples/integration-test-verify.html"/>

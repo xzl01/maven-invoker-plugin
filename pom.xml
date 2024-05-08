@@ -1,5 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
-
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -18,105 +17,158 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <artifactId>maven-plugins</artifactId>
     <groupId>org.apache.maven.plugins</groupId>
-    <version>30</version>
-    <relativePath>../../pom/maven/maven-plugins/pom.xml</relativePath>
+    <artifactId>maven-plugins</artifactId>
+    <version>39</version>
+    <relativePath />
   </parent>
 
   <artifactId>maven-invoker-plugin</artifactId>
-  <version>3.0.1</version>
+  <version>3.4.0</version>
   <packaging>maven-plugin</packaging>
 
   <name>Apache Maven Invoker Plugin</name>
-  <description>
-    The Maven Invoker Plugin is used to run a set of Maven projects. The plugin can determine whether each project
-    execution is successful, and optionally can verify the output generated from a given project execution.
-  </description>
+  <description>The Maven Invoker Plugin is used to run a set of Maven projects. The plugin can determine whether each project
+    execution is successful, and optionally can verify the output generated from a given project execution.</description>
 
   <prerequisites>
     <maven>${mavenVersion}</maven>
   </prerequisites>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/maven/plugins/tags/maven-invoker-plugin-3.0.1</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/maven/plugins/tags/maven-invoker-plugin-3.0.1</developerConnection>
-    <url>http://svn.apache.org/viewvc/maven/plugins/tags/maven-invoker-plugin-3.0.1</url>
+    <connection>scm:git:https://gitbox.apache.org/repos/asf/maven-invoker-plugin.git</connection>
+    <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/maven-invoker-plugin.git</developerConnection>
+    <tag>maven-invoker-plugin-3.4.0</tag>
+    <url>https://github.com/apache/maven-invoker-plugin/tree/${project.scm.tag}</url>
   </scm>
   <issueManagement>
     <system>jira</system>
-    <url>https://issues.apache.org/jira/browse/MINVOKER</url>
+    <url>https://issues.apache.org/jira/browse/MINVOKER/issues</url>
   </issueManagement>
+  <ciManagement>
+    <system>Jenkins</system>
+    <url>https://ci-maven.apache.org/job/Maven/job/maven-box/job/maven-invoker-plugin/</url>
+  </ciManagement>
   <distributionManagement>
     <site>
       <id>apache.website</id>
-      <url>scm:svn:https://svn.apache.org/repos/infra/websites/production/maven/components/${maven.site.path}</url>
+      <url>scm:svn:https://svn.apache.org/repos/asf/maven/website/components/${maven.site.path}</url>
     </site>
   </distributionManagement>
 
   <properties>
-    <mavenVersion>3.0</mavenVersion>
-    <doxiaVersion>1.7</doxiaVersion>
-    <doxia-sitetoolsVersion>1.7.4</doxia-sitetoolsVersion>
-    <beanshell-groupId>org.beanshell</beanshell-groupId>
+    <javaVersion>8</javaVersion>
+    <mavenVersion>3.2.5</mavenVersion>
+    <beanshell-groupId>org.apache-extras.beanshell</beanshell-groupId>
     <beanshell-artifactId>bsh</beanshell-artifactId>
-    <beanshell-version>2.0b4</beanshell-version>
-    <groovy-groupId>org.codehaus.groovy</groovy-groupId>
-    <groovy-artifactId>groovy-all</groovy-artifactId>
-    <groovy-version>2.2.2</groovy-version> <!-- latest 1.6 compatible -->
+    <beanshell-version>2.0b6</beanshell-version>
+    <project.build.outputTimestamp>2022-12-15T01:18:46Z</project.build.outputTimestamp>
+    <groovy-version>4.0.6</groovy-version>
   </properties>
+
+  <dependencyManagement>
+    <!-- manage versions for transitive dependency -->
+    <dependencies>
+      <dependency>
+        <groupId>commons-beanutils</groupId>
+        <artifactId>commons-beanutils</artifactId>
+        <version>1.9.4</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-codec</groupId>
+        <artifactId>commons-codec</artifactId>
+        <version>1.15</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-collections</groupId>
+        <artifactId>commons-collections</artifactId>
+        <version>3.2.2</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>2.11.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.groovy</groupId>
+        <artifactId>groovy-bom</artifactId>
+        <version>${groovy-version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <dependencies>
     <dependency>
       <groupId>org.apache.maven.shared</groupId>
       <artifactId>maven-invoker</artifactId>
-      <version>3.0.0</version>
+      <version>3.2.0</version>
     </dependency>
     <dependency>
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-core</artifactId>
       <version>${mavenVersion}</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-model</artifactId>
       <version>${mavenVersion}</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-plugin-api</artifactId>
       <version>${mavenVersion}</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-artifact</artifactId>
       <version>${mavenVersion}</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-settings</artifactId>
       <version>${mavenVersion}</version>
+      <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-settings-builder</artifactId>
+      <version>${mavenVersion}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- shared -->
     <dependency>
       <groupId>org.apache.maven.reporting</groupId>
       <artifactId>maven-reporting-api</artifactId>
-      <version>3.0</version>
+      <version>3.1.1</version>
     </dependency>
     <dependency>
       <groupId>org.apache.maven.reporting</groupId>
       <artifactId>maven-reporting-impl</artifactId>
-      <version>2.4</version>
+      <version>3.2.0</version>
       <exclusions>
         <exclusion>
-          <groupId>org.apache.maven</groupId>
-          <artifactId>maven-project</artifactId>
+          <groupId>org.codehaus.plexus</groupId>
+          <artifactId>plexus-container-default</artifactId>
         </exclusion>
       </exclusions>
+    </dependency>
+
+    <!-- doxia -->
+    <dependency>
+      <groupId>org.apache.maven.doxia</groupId>
+      <artifactId>doxia-sink-api</artifactId>
+      <version>1.11.1</version>
     </dependency>
 
     <dependency>
@@ -128,40 +180,19 @@ under the License.
     <dependency>
       <groupId>org.apache.maven.shared</groupId>
       <artifactId>maven-script-interpreter</artifactId>
-      <version>1.2</version>
-      <exclusions>
-        <!-- there's already a direct dependency to groovy-all -->
-        <exclusion>
-          <groupId>org.codehaus.groovy</groupId>
-          <artifactId>groovy</artifactId>
-        </exclusion>
-      </exclusions>
+      <version>1.4</version>
     </dependency>
 
     <dependency>
       <groupId>org.apache.maven.shared</groupId>
       <artifactId>maven-artifact-transfer</artifactId>
-      <version>0.9.1</version>
+      <version>0.13.1</version>
     </dependency>
-
-    <!-- Doxia -->
     <dependency>
-      <groupId>org.apache.maven.doxia</groupId>
-      <artifactId>doxia-sink-api</artifactId>
-      <version>${doxiaVersion}</version>
-    </dependency>
-
-    <!-- Doxia-sitetools -->
-    <dependency>
-      <groupId>org.apache.maven.doxia</groupId>
-      <artifactId>doxia-site-renderer</artifactId>
-      <version>${doxia-sitetoolsVersion}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.codehaus.plexus</groupId>
-          <artifactId>plexus-container-default</artifactId>
-        </exclusion>
-      </exclusions>
+      <groupId>org.apache.maven.shared</groupId>
+      <artifactId>maven-common-artifact-filters</artifactId>
+      <version>3.2.0</version>
+      <scope>compile</scope>
     </dependency>
 
     <dependency>
@@ -170,37 +201,38 @@ under the License.
       <version>${beanshell-version}</version>
       <scope>runtime</scope>
     </dependency>
+
     <dependency>
-      <groupId>${groovy-groupId}</groupId>
-      <artifactId>${groovy-artifactId}</artifactId>
-      <version>${groovy-version}</version>
+      <groupId>org.apache.groovy</groupId>
+      <artifactId>groovy</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.groovy</groupId>
+      <artifactId>groovy-json</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.groovy</groupId>
+      <artifactId>groovy-xml</artifactId>
       <scope>runtime</scope>
     </dependency>
 
     <dependency>
       <groupId>org.codehaus.plexus</groupId>
       <artifactId>plexus-utils</artifactId>
-      <version>3.0.24</version>
-    </dependency>
-    <dependency>
-      <groupId>commons-io</groupId>
-      <artifactId>commons-io</artifactId>
-      <version>2.5</version>
+      <version>3.5.0</version>
     </dependency>
     <dependency>
       <groupId>org.codehaus.plexus</groupId>
       <artifactId>plexus-interpolation</artifactId>
-      <version>1.24</version>
+      <version>1.26</version>
     </dependency>
     <dependency>
       <groupId>org.codehaus.plexus</groupId>
       <artifactId>plexus-i18n</artifactId>
-      <version>1.0-beta-7</version>
+      <version>1.0-beta-10</version>
       <exclusions>
-        <exclusion>
-          <groupId>org.codehaus.plexus</groupId>
-          <artifactId>plexus-container-default</artifactId>
-        </exclusion>
         <exclusion>
           <groupId>org.codehaus.plexus</groupId>
           <artifactId>plexus-component-api</artifactId>
@@ -210,28 +242,51 @@ under the License.
     <dependency>
       <groupId>org.apache.maven.shared</groupId>
       <artifactId>maven-shared-utils</artifactId>
-      <version>3.1.0</version>
+      <version>3.3.4</version>
     </dependency>
 
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.12</version>
+      <version>4.13.2</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>4.9.0</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.maven.plugin-testing</groupId>
       <artifactId>maven-plugin-testing-harness</artifactId>
-      <version>2.1</version>
+      <version>3.3.0</version>
       <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.codehaus.plexus</groupId>
+          <artifactId>plexus-container-default</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-compat</artifactId>
-      <version>3.0</version>
+      <version>${mavenVersion}</version>
       <scope>test</scope>
     </dependency>
-    
+    <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
+      <version>3.23.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+      <version>1.7.36</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <build>
@@ -241,10 +296,6 @@ under the License.
         <plugin>
           <groupId>org.apache.rat</groupId>
           <artifactId>apache-rat-plugin</artifactId>
-          <!--
-            ! Can be removed if we have updated to ASF parent version 19. 
-           -->
-          <version>0.12</version>
           <configuration>
             <excludes combine.children="append">
               <exclude>src/it/staging-dependencies/repo/**/*</exclude>
@@ -253,17 +304,34 @@ under the License.
             </excludes>
           </configuration>
         </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-checkstyle-plugin</artifactId>
+          <configuration>
+            <includeTestSourceDirectory>true</includeTestSourceDirectory>
+          </configuration>
+        </plugin>
+        <plugin>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <configuration>
+            <systemPropertyVariables>
+              <maven.home>${maven.home}</maven.home>
+            </systemPropertyVariables>
+          </configuration>
+        </plugin>
       </plugins>
     </pluginManagement>
 
     <plugins>
       <plugin>
-        <groupId>org.apache.rat</groupId>
-        <artifactId>apache-rat-plugin</artifactId>
-      </plugin>
-      <plugin>
         <groupId>org.codehaus.modello</groupId>
         <artifactId>modello-maven-plugin</artifactId>
+        <configuration>
+          <models>
+            <model>src/main/mdo/invocation.mdo</model>
+          </models>
+          <version>1.0.0</version>
+        </configuration>
         <executions>
           <execution>
             <id>standard</id>
@@ -278,19 +346,35 @@ under the License.
           </execution>
           <execution>
             <id>site-docs</id>
-            <phase>pre-site</phase>
             <goals>
               <goal>xdoc</goal>
             </goals>
+            <phase>pre-site</phase>
           </execution>
         </executions>
-        <configuration>
-          <models>
-            <model>src/main/mdo/invocation.mdo</model>
-          </models>
-          <version>1.0.0</version>
-          <useJava5>true</useJava5>
-        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>ban-org-codehaus-groovy</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <phase>validate</phase>
+            <configuration>
+              <rules>
+                <bannedDependencies>
+                  <excludes>
+                    <exclude>org.codehaus.groovy:*</exclude>
+                  </excludes>
+                  <searchTransitive>true</searchTransitive>
+                </bannedDependencies>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
@@ -299,7 +383,19 @@ under the License.
     <profile>
       <id>run-its</id>
       <properties>
-        <sitePluginVersion>3.3</sitePluginVersion>
+        <!-- plugins versions used in IT tests -->
+        <antrunPluginVersion>3.1.0</antrunPluginVersion>
+        <cleanPluginVersion>3.2.0</cleanPluginVersion>
+        <compilerPluginVersion>3.10.1</compilerPluginVersion>
+        <enforcerPluginVersion>3.1.0</enforcerPluginVersion>
+        <helpPluginVersion>3.3.0</helpPluginVersion>
+        <installPluginVersion>3.1.0</installPluginVersion>
+        <jarPluginVersion>3.3.0</jarPluginVersion>
+        <pluginPluginVersion>3.7.0</pluginPluginVersion>
+        <resourcesPluginVersion>3.3.0</resourcesPluginVersion>
+        <sitePluginVersion>3.12.1</sitePluginVersion>
+        <sourcePluginVersion>3.2.1</sourcePluginVersion>
+        <surefirePluginVersion>3.0.0-M7</surefirePluginVersion>
       </properties>
       <build>
         <pluginManagement>
@@ -308,17 +404,23 @@ under the License.
               <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-invoker-plugin</artifactId>
               <configuration>
-                <debug>true</debug>
                 <cloneProjectsTo>${project.build.directory}/it</cloneProjectsTo>
                 <preBuildHookScript>setup</preBuildHookScript>
                 <postBuildHookScript>verify</postBuildHookScript>
                 <localRepositoryPath>${project.build.directory}/local-repo</localRepositoryPath>
                 <settingsFile>src/it/settings.xml</settingsFile>
                 <mavenOpts>-Djava.io.tmpdir=${project.build.directory}</mavenOpts>
+                <streamLogsOnFailures>true</streamLogsOnFailures>
                 <properties>
                   <maven.compiler.source>${maven.compiler.source}</maven.compiler.source>
                   <maven.compiler.target>${maven.compiler.target}</maven.compiler.target>
+                  <!-- in order to stop Jenkins to recognized reports from test as project report -->
+                  <invoker.reportsDirectory>target/invoker-reports-test</invoker.reportsDirectory>
+                  <invoker.streamLogsOnFailures>true</invoker.streamLogsOnFailures>
                 </properties>
+                <scriptVariables>
+                  <projectVersion>${project.version}</projectVersion>
+                </scriptVariables>
                 <goals>
                   <goal>clean</goal>
                   <goal>initialize</goal>
@@ -361,51 +463,12 @@ under the License.
               <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-invoker-plugin</artifactId>
               <version>${project.version}</version>
+              <configuration>
+                <writeJunitReport>true</writeJunitReport>
+              </configuration>
             </plugin>
           </plugins>
         </pluginManagement>
-      </build>
-    </profile>
-    <profile>
-      <activation>
-        <jdk>[1.7,)</jdk>
-      </activation>
-      <properties>
-        <groovy-version>2.4.8</groovy-version>
-      </properties>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-enforcer-plugin</artifactId>
-            <executions>
-              <!-- compile time should be 1.6 compatible -->
-              <!-- groovy-all 2.3.0+ has 2 java7 classes -->
-              <execution>
-                <id>enforce-bytecode-version</id>
-                <configuration>
-                  <rules>
-                    <enforceBytecodeVersion>
-                      <ignoredScopes>
-                        <ignoredScope>runtime</ignoredScope>
-                      </ignoredScopes>
-                    </enforceBytecodeVersion>
-                  </rules>
-                </configuration>
-              </execution>
-              <execution>
-                <id>enforce-bytecode-version-runtime</id>
-                <configuration>
-                  <rules>
-                    <enforceBytecodeVersion>
-                      <maxJdkVersion>1.7</maxJdkVersion>
-                    </enforceBytecodeVersion>
-                  </rules>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
       </build>
     </profile>
   </profiles>

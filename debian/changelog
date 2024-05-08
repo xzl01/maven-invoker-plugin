@@ -1,3 +1,19 @@
+maven-invoker-plugin (3.4.0-1) unstable; urgency=medium
+
+  * Team upload.
+  * New upstream release
+    - Depend on libmaven-script-interpreter-java (>= 1.4)
+    - New dependency on libcommons-collections3-java
+    - Disabled the tests (require a Mockito upgrade)
+    - Updated the maven-debian-helper rules
+  * Depend on libmaven-parent-java
+  * Standards-Version updated to 4.6.2
+  * Switch to debhelper level 13
+  * Use salsa.debian.org Vcs-* URLs
+  * Track and download the new releases from GitHub
+
+ -- Emmanuel Bourg <ebourg@apache.org>  Tue, 10 Jan 2023 16:04:55 +0100
+
 maven-invoker-plugin (3.0.1-2) unstable; urgency=medium
 
   * Team upload.

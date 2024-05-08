@@ -43,6 +43,7 @@ under the License.
           <cloneProjectsTo>${project.build.directory}/it</cloneProjectsTo>
           <setupIncludes>
             <setupInclude>project3</setupInclude>
+            <setupInclude>project6</setupInclude>
           </setupIncludes>
           <pomIncludes>
             <pomInclude>*/pom.xml</pomInclude>

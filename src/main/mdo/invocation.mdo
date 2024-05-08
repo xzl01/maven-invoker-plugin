@@ -19,8 +19,8 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<model xmlns="http://modello.codehaus.org/MODELLO/1.4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://modello.codehaus.org/MODELLO/1.4.0 http://modello.codehaus.org/xsd/modello-1.4.0.xsd"
+<model xmlns="http://codehaus-plexus.github.io/MODELLO/1.4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://codehaus-plexus.github.io/MODELLO/1.4.0 https://codehaus-plexus.github.io/modello/xsd/modello-1.4.0.xsd"
        xsd.namespace="http://maven.apache.org/plugins/maven-invoker-plugin/build-job/1.0.0"
        xsd.targetNamespace="http://maven.apache.org/plugins/maven-invoker-plugin/build-job/1.0.0">
   <id>build-job</id>
@@ -95,6 +95,21 @@ under the License.
           <required>true</required>
           <type>String</type>
           <description>The type of the build job.</description>
+          <defaultValue>normal</defaultValue>
+        </field>
+        <field xml.attribute="true">
+          <name>ordinal</name>
+          <version>1.0.0</version>
+          <required>false</required>
+          <type>int</type>
+          <description>BuildJobs will be sorted in the descending order of the ordinal. In other words, the BuildJobs with the highest numbers will be executed first</description>
+        </field>
+        <field xml.attribute="true">
+          <name>buildlog</name>
+          <version>1.0.0</version>
+          <required>false</required>
+          <type>String</type>
+          <description>The build log filename</description>
         </field>
       </fields>
       <codeSegments>
@@ -110,15 +125,18 @@ under the License.
     }
 
     /**
-     * Creates a new build job with the specified project path and type.
+     * Creates a new build job with the specified project path.
      * 
      * @param project The path to the project.
-     * @param type The type of the build job.
      */
-    public BuildJob( String project, String type )
+    public BuildJob( String project )
     {
         this.project = project;
-        this.type = type;
+    }
+
+    public boolean isNotError()
+    {
+        return Result.SUCCESS.equals( result ) || Result.SKIPPED.equals( result );
     }
           ]]></code>
         </codeSegment>
@@ -182,11 +200,6 @@ under the License.
          * A normal build job.
          */
         public static final String NORMAL = "normal";
-
-        /**
-         * A build job that was directly selected via the <code>-Dinvoker.test=xxx,yyy</code> parameter.
-         */
-        public static final String DIRECT = "direct";
 
     }
           ]]></code>

@@ -31,6 +31,8 @@ under the License.
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <compilerPluginVersion>@compilerPluginVersion@</compilerPluginVersion>
+    <surefirePluginVersion>@surefirePluginVersion@</surefirePluginVersion>
   </properties>
 
   <build>
@@ -38,7 +40,7 @@ under the License.
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-invoker-plugin</artifactId>
-        <version>@pom.version@</version>
+        <version>@project.version@</version>
         <configuration>
           <debug>true</debug>
           <cloneProjectsTo>${project.build.directory}/it</cloneProjectsTo>
@@ -48,6 +50,10 @@ under the License.
           <goals>
             <goal>validate</goal>
           </goals>
+          <properties>
+            <maven.compiler.source>${maven.compiler.source}</maven.compiler.source>
+            <maven.compiler.target>${maven.compiler.target}</maven.compiler.target>
+          </properties>
         </configuration>
         <executions>
           <execution>

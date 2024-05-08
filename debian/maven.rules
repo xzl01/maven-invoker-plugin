@@ -1,4 +1,8 @@
+commons-collections commons-collections * s/.*/3.x/ * *
 junit junit jar s/.*/4.x/
 org.codehaus.plexus plexus-utils * s/.*/2.x/ * *
 org.apache.maven maven-* * s/.*/3.x/ * *
 org.apache.maven.reporting maven-reporting-api * s/.*/3.x/ * *
+org.apache.maven.plugins maven-plugins pom s/.*/debian/ * *
+s/org.apache.groovy/org.codehaus.groovy/ * * * * *
+s/org.apache-extras.beanshell/org.beanshell/ bsh * s/.*/debian/ * *

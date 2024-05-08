@@ -28,8 +28,8 @@
 
 Using with other integration test frameworks
 
-  If you are using other integration test frameworks, or if you need to setup an integration test enviroment prior to
-  test execution and tear that envronment down afterwards, then you need to use the <<<invoker:integration-test>>> and
+  If you are using other integration test frameworks, or if you need to setup an integration test environment prior to
+  test execution and tear that environment down afterwards, then you need to use the <<<invoker:integration-test>>> and
   <<<invoker:verify>>> goals in place of <<<invoker:run>>>.  For example:
 
 +----
@@ -37,12 +37,14 @@ Using with other integration test frameworks
   <build>
     <plugins>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-invoker-plugin</artifactId>
         <version>${project.version}</version>
         <executions>
           <execution>
             <id>integration-test</id>
             <goals>
+              <!-- <goal>install</goal> -->
               <goal>integration-test</goal>
               <goal>verify</goal>
             </goals>
